@@ -33,7 +33,7 @@ function makeUsersArray() {
       password: 'password',
       date_created: new Date('2029-01-22T16:28:32.615Z'),
     },
-  ]
+  ];
 }
 
 function makeArticlesArray(users) {
@@ -70,7 +70,7 @@ function makeArticlesArray(users) {
       date_created: new Date('2029-01-22T16:28:32.615Z'),
       content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
     },
-  ]
+  ];
 }
 
 function makeCommentsArray(users, articles) {
@@ -262,6 +262,11 @@ function seedMaliciousArticle(db, user, article) {
     )
 }
 
+function makeAuthHeader(user) {
+  const token = Buffer.from(`${user.user_name}:${user.password}`).toString('base64');
+  return `Basic ${token}`;
+}
+
 module.exports = {
   makeUsersArray,
   makeArticlesArray,
@@ -274,4 +279,5 @@ module.exports = {
   cleanTables,
   seedArticlesTables,
   seedMaliciousArticle,
-}
+  makeAuthHeader
+};
